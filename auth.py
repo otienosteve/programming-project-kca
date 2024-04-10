@@ -68,7 +68,7 @@ def test():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("user_dash.home"))
+    return redirect(url_for("student_bp.student_home"))
 
 
 

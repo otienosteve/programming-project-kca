@@ -1,0 +1,21 @@
+{% extends 'student/student-dashboard.html' %}
+{% block center %}
+<h3>Add bio data</h3>
+<form action="{{url_for('student_bp.add_details')}}" class="form w-50" enctype="multipart/form-data" method="POST">
+    {{form.hidden_tag()}}
+    {{form.firstname.label(class='form-label')}}{{form.firstname(class='form-control')}}
+    {{form.lastname.label(class='form-label')}}{{form.lastname(class='form-control')}}
+    {{form.contact_phone_number.label(class='form-label')}}{{form.contact_phone_number(class='form-control')}}
+    {{form. photo_url.label(class='form-label')}}{{form. photo_url(class='form-control')}}
+    {{form. gender.label(class='form-label')}}{{form. gender(class='form-select')}}
+    {{form.dob.label(class='form-label')}}{{form.dob(class='form-control')}}
+    {{form.place_of_birth.label(class='form-label')}}{{form.place_of_birth(class='form-control')}}
+    {{form.village.label(class='form-label')}}{{form.village(class='form-control')}}
+    {{form.ward.label(class='form-label')}}{{form.ward(class='form-control')}}
+    {{form.constituency.label(class='form-label')}}{{form.constituency(class='form-control')}}
+    <br>
+    {{form.submit(class='btn btn-outline-primary btn-sm')}}
+
+</form>
+
+{% endblock center %}

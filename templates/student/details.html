@@ -1,5 +1,19 @@
-{% extends 'student/student-dashboard' %}
+{% extends 'student/student-dashboard.html' %}
+
 {% block center %}
-  
+<h3>Details</h3>
+<div class="image-holder">
+
+    <img src="{{url_for('static', filename=student_details.photo_url)}}" alt="">
+</div>
+<p class="h4"> <span class="text-muted">Name: </span><strong>{{student_details.firstname}} {{student_details.lastname}}
+    </strong></p>
+<p class="h4"> <span class="text-muted">Date Of Birth:</span><strong>{{student_details.dob}}</strong></p>
+<p class="h4"> <span class="text-muted">Email: </span> <strong>{{user.email}}
+    </strong></p>
+<p class="h4"> <span class="text-muted">Phone: </span><strong>{{student_details.contact_phone_number }}
+    </strong></p>
+<p class="h4"> <span class="text-muted">Id no: </span><strong>{{user.id_no}}
+    </strong></p>
 
 {% endblock center %}

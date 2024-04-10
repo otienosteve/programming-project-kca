@@ -1,8 +1,8 @@
-"""Create Database Tables
+"""Add database Tables
 
-Revision ID: ab3e31a54a9e
+Revision ID: 423efca07558
 Revises: 
-Create Date: 2024-04-09 23:37:15.227280
+Create Date: 2024-04-10 02:24:22.716872
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ab3e31a54a9e'
+revision = '423efca07558'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -28,7 +28,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('id')
     )
-    op.create_table('user',
+    op.create_table('users',
     sa.Column('id', sa.UUID(), nullable=False),
     sa.Column('name', sa.String(length=100), nullable=False),
     sa.Column('email', sa.String(length=100), nullable=False),
@@ -63,7 +63,7 @@ def upgrade():
     sa.Column('verified', sa.Boolean(), nullable=True),
     sa.Column('approved', sa.Boolean(), nullable=True),
     sa.Column('needy_score', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('id')
     )
@@ -143,6 +143,6 @@ def downgrade():
     op.drop_table('declaration_documents')
     op.drop_table('beneficiary')
     op.drop_table('studentdetails')
-    op.drop_table('user')
+    op.drop_table('users')
     op.drop_table('bursary')
     # ### end Alembic commands ###

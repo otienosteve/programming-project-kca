@@ -4,18 +4,18 @@
     <div class="w-25  mx-auto text-center">
         <img src="{{url_for('static', filename='system/students.png')}}" alt="" srcset=""
             style="width:100px;height:100px;">
-        <h3> Login </h3>
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-
+            <h3> Login </h3>
             {% with messages = get_flashed_messages() %}
             {% if messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+
             {% for message in messages %}
             <strong>{{ message }}</strong>
             {% endfor %}
-            {% endif %}
-            {% endwith %}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+        {% endif %}
+        {% endwith %}
         <form method='POST' action="{{url_for('auth_bp.login')}}" class='form'>
             {{form.hidden_tag()}}
             {{form.email.label()}} {{form.email(class='form-control')}} <br /><br />

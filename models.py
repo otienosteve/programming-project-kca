@@ -13,7 +13,7 @@ def generate_uuid():
     return str(uuid.uuid4())
 
 class User(db.Model,UserMixin):
-    __tablename__='user'
+    __tablename__='users'
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
@@ -37,7 +37,7 @@ class User(db.Model,UserMixin):
 class StudentDetails(db.Model):
     __tablename__ = 'studentdetails'  
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
-    user_id = db.Column(UUID(as_uuid=True), db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'), nullable=False)
     firstname = db.Column(db.String(100), nullable=False)
     lastname = db.Column(db.String(100), nullable=False)
     contact_phone_number = db.Column(db.String(20), nullable=False)
@@ -48,13 +48,13 @@ class StudentDetails(db.Model):
     village = db.Column(db.String(100), nullable=False)
     ward = db.Column(db.String(100), nullable=False)
     constituency = db.Column(db.String(100), nullable=False)
-    institution_name = db.Column(db.String(100), nullable=False)
-    institution_code = db.Column(db.String(100), nullable=False)
-    campus = db.Column(db.String(100), nullable=False)
-    level = db.Column(db.String(100), nullable=False)
-    course = db.Column(db.String(100), nullable=False)
-    mode_of_study = db.Column(db.String(100), nullable=False)
-    expected_completion_year = db.Column(db.Date, nullable=False)
+    # institution_name = db.Column(db.String(100), nullable=False)
+    # institution_code = db.Column(db.String(100), nullable=False)
+    # campus = db.Column(db.String(100), nullable=False)
+    # level = db.Column(db.String(100), nullable=False)
+    # course = db.Column(db.String(100), nullable=False)
+    # mode_of_study = db.Column(db.String(100), nullable=False)
+    # expected_completion_year = db.Column(db.Date, nullable=False)
     verified = db.Column(db.Boolean, default=False)
     approved = db.Column(db.Boolean, default=False)
     needy_score = db.Column(db.Integer())

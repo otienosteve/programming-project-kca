@@ -26,10 +26,10 @@ class LoginForm(FlaskForm):
 gender_choices = [('Male', 'Male'), ('Female','Female')]
 
 class StudentDetailsForm(FlaskForm):
-    firstname = StringField(validators=[DataRequired(), Length(min=3, max=25)])
-    lastname = StringField(validators=[DataRequired(), Length(min=3, max=25)])
+    firstname = StringField('First Name',validators=[DataRequired(), Length(min=3, max=25)])
+    lastname = StringField('Last Name',validators=[DataRequired(), Length(min=3, max=25)])
     contact_phone_number = StringField('Phone Number',validators=[DataRequired(),Length(min=10, max=12),Regexp(r'^([\s\d]+)$')])
-    photo_url = FileField('Image', validators=[
+    photo_url = FileField('photo', validators=[
         FileRequired(),
         FileAllowed(['jpg', 'png'], 'Images only!')
     ])
@@ -39,6 +39,9 @@ class StudentDetailsForm(FlaskForm):
     village = StringField(validators=[DataRequired(), Length(min=3, max=25)])
     ward = StringField(validators=[DataRequired(), Length(min=3, max=25)])
     constituency = StringField(validators=[DataRequired(), Length(min=3, max=25)])
+    submit =SubmitField('Add Bio Data')
+
+class InstitutionDetailsForm(FlaskForm):
     institution_name = StringField(validators=[DataRequired(), Length(min=3, max=25)])
     institution_code = StringField(validators=[DataRequired(), Length(min=3, max=25)])
     campus = StringField(validators=[DataRequired(), Length(min=3, max=25)])
@@ -46,3 +49,5 @@ class StudentDetailsForm(FlaskForm):
     course = StringField(validators=[DataRequired(), Length(min=3, max=25)])
     mode_of_study = StringField(validators=[DataRequired(), Length(min=3, max=25)])
     expected_completion_year = DateField('Start Date', format='%m/%d/%Y', validators=[DataRequired()])
+    submit =SubmitField('Add Education Details')
+    
