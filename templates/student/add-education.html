@@ -1,6 +1,39 @@
 {% extends 'student/student-dashboard.html' %}
 {% block center %}
-  
-<h3>Education Details</h3>
+<div class="form-section w-50 mx-auto text-center">
 
+    <h3> Add Education Details</h3>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+
+        <ul>
+            {% for message in messages %}
+            <li>
+                <strong>{{ message }}</strong>
+            </li>
+            {% endfor %}
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    {% endwith %}
+    <form action="" method="POST">
+        {{form.hidden_tag()}}
+        {{form.institution_type.label(class='form-label')}}{{form.institution_type(class='form-select')}}
+        {{form.institution_name.label(class='form-label')}}{{form.institution_name(class='form-control')}}
+        {{form.institution_code.label(class='form-label')}}{{form.institution_code(class='form-control')}}
+        {{form.campus.label(class='form-label')}}{{form.campus(class='form-control')}}
+        {{form.level.label(class='form-label')}}{{form.level(class='form-control')}}
+        {{form.course.label(class='form-label')}}{{form.course(class='form-control')}}
+        {{form.mode_of_study.label(class='form-label')}}{{form.mode_of_study(class='form-control')}}
+        {{form.start_date.label(class='form-label')}}{{form.start_date(class='form-control')}}
+        {{form.end_date.label(class='form-label')}}{{form.end_date(class='form-control')}}
+        {{form.funding_source.label(class='form-label')}}{{form.funding_source(class='form-control')}}
+        {{form.details.label(class='form-label')}}{{form.details(class='form-control')}}
+        {{form.grade.label(class='form-label')}}{{form.grade(class='form-control')}}
+        <br>
+        {{form.submit(class='btn btn-outline-primary btn-sm')}}
+    </form>
+</div>
 {% endblock center %}

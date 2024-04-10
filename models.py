@@ -23,6 +23,7 @@ class User(db.Model,UserMixin):
     role = db.Column(db.String(50), nullable=False)
     id_no = db.Column(db.Integer, nullable=False)
     password_hash = db.Column(db.String(128))
+    details = db.relationship('StudentDetails', back_populates='user')
 
     @property
     def password(self):
@@ -53,6 +54,7 @@ class StudentDetails(db.Model):
     verified = db.Column(db.Boolean, default=False)
     approved = db.Column(db.Boolean, default=False)
     needy_score = db.Column(db.Integer())
+    user = db.relationship('User', back_populates='details')
 
 
 

@@ -34,10 +34,10 @@
         </div>
         <div class="col-md-6">
             <h3>Update Bio data </h3>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
 
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
                 <ul>
                     {% for message in messages %}
                     <li>
@@ -45,10 +45,10 @@
                     </li>
                     {% endfor %}
                 </ul>
-                {% endif %}
-                {% endwith %}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+            {% endif %}
+            {% endwith %}
             <form action="{{url_for('student_bp.details')}}" class="form w-50" enctype="multipart/form-data"
                 method="POST">
                 {{form.hidden_tag()}}

@@ -56,19 +56,60 @@ class StudentDetailsUpdateForm(FlaskForm):
     constituency = StringField(validators=[ Length(min=3, max=25)])
     submit =SubmitField('Add Bio Data')
 
-institution_choices = [('yes','yes'),
-                       ('no','no'),
-                       ('retired','retired')
-                       ,('self_employed','self employed')]
+institution_choices = [('primary','primary'),
+                       ('secondary','secondary'),
+                       ('tetiary','tetiary')
+                      ]
 
 class InstitutionDetailsForm(FlaskForm):
-    institution_type = SelectField(choices=institution_choices, validators=[DataRequired()])
-    institution_name = StringField(validators=[DataRequired(), Length(min=3, max=25)])
-    institution_code = StringField(validators=[DataRequired(), Length(min=3, max=25)])
-    campus = StringField(validators=[DataRequired(), Length(min=3, max=25)])
-    level = StringField(validators=[DataRequired(), Length(min=3, max=25)])
-    course = StringField(validators=[DataRequired(), Length(min=3, max=25)])
-    mode_of_study = StringField(validators=[DataRequired(), Length(min=3, max=25)])
-    expected_completion_year = DateField('Start Date', format='%m/%d/%Y', validators=[DataRequired()])
+    institution_type = SelectField('Institution Type',choices=institution_choices, validators=[DataRequired()])
+    institution_name = StringField('Institution Name',validators=[DataRequired(), Length(min=3, max=25)])
+    institution_code = StringField('(Where Applicable) Institution Code',validators=[DataRequired(), Length(min=3, max=25)])
+    campus = StringField('(Where Applicable) Campus',validators=[DataRequired(), Length(min=3, max=25)])
+    level = StringField('Level/year/class',validators=[DataRequired(), Length(min=3, max=25)])
+    course = StringField('(Where Appplicable) Course',validators=[DataRequired(), Length(min=3, max=25)])
+    mode_of_study = StringField('(Where Appplicable) Mode Of Study',validators=[DataRequired(), Length(min=3, max=25)])
+    start_date = DateField('Start Date', format='%m/%d/%Y', validators=[DataRequired()])
+    end_date =  DateField('Start Date', format='%m/%d/%Y', validators=[DataRequired()])
+    details = TextAreaField('Funding Details', validators=[DataRequired()])
+    funding_source = StringField('Funding Source',validators=[DataRequired()])
+    grade = StringField('Grade/Marks', validators=[DataRequired()])
+    start_date = DateField('Start Date', validators=[DataRequired()])
+    end_date = DateField('Start Date', validators=[DataRequired()])
     submit =SubmitField('Add Education Details')
     
+
+class InstitutionDetailsUpdateForm(FlaskForm):
+    institution_type = SelectField('Institution Type',choices=institution_choices, validators=[])
+    institution_name = StringField('Institution Name',validators=[Length(min=3, max=25)])
+    institution_code = StringField('(Where Applicable) Institution Code',validators=[Length(min=3, max=25)])
+    campus = StringField('(Where Applicable) Campus',validators=[Length(min=3, max=25)])
+    level = StringField('Level/year/class',validators=[Length(min=3, max=25)])
+    course = StringField('(Where Appplicable) Course',validators=[Length(min=3, max=25)])
+    mode_of_study = StringField('(Where Appplicable) Mode Of Study',validators=[Length(min=3, max=25)])
+    start_date = DateField('Start Date', format='%m/%d/%Y', validators=[])
+    end_date =  DateField('Start Date', format='%m/%d/%Y', validators=[])
+    details = TextAreaField('Funding Details', validators=[])
+    funding_source = StringField('Funding Source',validators=[])
+    grade = StringField('Grade/Marks', validators=[])
+    start_date = DateField('Start Date', validators=[])
+    end_date = DateField('Start Date', validators=[])
+    submit =SubmitField('Update Education Details')
+
+
+class SiblingsForm(FlaskForm):
+    name = StringField('Sibling Name',validators=[DataRequired()])
+    relationship = StringField('Relationship',validators=[DataRequired()])
+    institution = StringField('Institution',validators=[DataRequired()])
+    total = StringField('Total Annual Fees', validators=[DataRequired()])
+    level = StringField('Education Level', validators=[DataRequired()])
+    paid = StringField('Total Paid',validators=[DataRequired()])
+    submit =SubmitField('Add Sibling Details')
+
+class SiblingsUpdateForm(FlaskForm):
+    name = StringField('Sibling Name')
+    relationship = StringField('Relationship')
+    institution = StringField('Institution')
+    total = StringField('Total Annual Fees')
+    paid = StringField('Total Paid')
+    submit =SubmitField('Update Sibling Details')
