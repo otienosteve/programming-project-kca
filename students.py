@@ -170,29 +170,27 @@ def view_siblings():
     sibling_details = Siblings.query.filter_by(student_id=user.id).all()
     return render_template('student/view-siblings.html',user=user,sibling_details=sibling_details)
 
-@student_bp.route('/education_by_id/<string:id>', methods=['GET','POST'])
+@student_bp.route('/sibling_by_id/<string:id>', methods=['GET','POST'])
 def sibling_by_id(id):
-    education = EducationDetails.query.filter_by(id=id).first()
-    if education:
-        db.session.delete(education)
+    sibling = Siblings.query.filter_by(id=id).first()
+    if sibling:
+        db.session.delete(sibling)
         db.session.commit()
-        return redirect(url_for('student_bp.view_education'))
+        return redirect(url_for('student_bp.view_siblings'))
     else: 
         flash('Education Does not Exist')
-        return redirect(url_for('student_bp.view_education'))
+        return redirect(url_for('student_bp.view_siblings'))
     
-@student_bp.route('/update_education/<string:id>', methods=['GET','POST'])
+@student_bp.route('/update_siblings/<string:id>', methods=['GET','POST'])
 def update_sibling(id):
-    education_details = EducationDetails.query.filter_by(id=id).first()
+    sibling_details = Siblings.query.filter_by(id=id).first()
     form = SiblingsUpdateForm()
     user = current_user 
-    form.details.data = education_details.details
-    form.institution_type.data = education_details.institution_type.value 
     if request.method == 'POST':
         for key, value in form.data.items():
             if value is not None:
-                setattr(education_details, key, value)
-            db.session.add(education_details)
+                setattr(sibling_details, key, value)
+            db.session.add(sibling_details)
             db.session.commit()
-        return redirect(url_for('student_bp.view_education'))
-    return render_template('student/update-details.html', user=user, form=form, education_details=education_details)
+        return redirect(url_for('student_bp.view_siblings'))
+    return render_template('student/update-siblings.html', user=user, form=form, sibling_details=sibling_details)

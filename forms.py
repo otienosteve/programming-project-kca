@@ -111,5 +111,6 @@ class SiblingsUpdateForm(FlaskForm):
     relationship = StringField('Relationship')
     institution = StringField('Institution')
     total = StringField('Total Annual Fees')
+    level = StringField('Education Level')
     paid = StringField('Total Paid')
     submit =SubmitField('Update Sibling Details')

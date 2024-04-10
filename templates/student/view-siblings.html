@@ -25,9 +25,9 @@
                 <td scope="row">{{sibling.level}}</td>
                 <td scope="row">{{sibling.total_annual_fees}}</td>
                 <td scope="row">{{sibling.paid}}</td>
-                <td scope="row"> <a href="{{url_for('student_bp.update_education', id=sibling.id)}}"
-                        class="btn btn-outline-primary btn-sm">Update </a> </td>
-                <td scope="row"> <a href="{{url_for('student_bp.education_by_id', id=sibling.id)}}"
+                <td scope="row"> <a href="{{url_for('student_bp.update_sibling', id=sibling.id)}}"
+                        class="btn btn-outline-primary btn-sm">Update</a> </td>
+                <td scope="row"> <a href="{{url_for('student_bp.sibling_by_id', id=sibling.id)}}"
                         class="btn btn-outline-danger btn-sm">Delete </a></td>
             </tr>
             {% endfor %}
