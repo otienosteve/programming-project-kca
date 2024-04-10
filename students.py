@@ -3,7 +3,7 @@ import os
 from flask import Blueprint, render_template,request, flash, redirect, url_for
 from werkzeug.utils import secure_filename
 from flask_login import current_user, login_required
-from forms import StudentDetailsForm
+from forms import StudentDetailsForm, StudentDetailsUpdateForm
 from models import User, StudentDetails,db
 
 student_bp = Blueprint('student_bp',__name__,url_prefix='/student')
@@ -44,15 +44,24 @@ def add_details():
                     flash(f'Error in field "{getattr(form, field).label.text}": {error}', 'error')
     return render_template('student/student-details.html', form=form, user=user)
 
-@student_bp.route('/details')
+@student_bp.route('/details', methods=['GET', 'POST'])
 def details():
     user = current_user
-    form = StudentDetailsForm()
+    form = StudentDetailsUpdateForm()
     student_details = StudentDetails.query.filter_by(user_id=current_user.id).first()
-    form.photo_url.data = student_details.photo_url
+    form.photo_url.file = student_details.photo_url
     if request.method=='POST':
         if form.validate_on_submit():
+            if form.data.get('photo_url'):
+                file = form.data.get('photo_url')
+                ext = file.filename.split('.')[-1]
+                file.filename = str(uuid.uuid4())+'.'+ext
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(os.environ.get('UPLOAD_FOLDER'), filename))
+                student_details.photo_url= filename
             for key, value in form.data.items():
+                if key == 'photo_url':
+                    continue
                 if value is not None:
                     setattr(student_details,key,value)
                     db.session.add(student_details)
@@ -62,3 +71,8 @@ def details():
                 for error in errors:
                     flash(f'Error in field "{getattr(form, field).label.text}": {error}', 'error')
     return render_template('student/details.html', user=user,student_details=student_details, form=form)
+
+@student_bp.route('/education')
+def add_education():
+    user = current_user
+    return render_template('users/add-education.html', user=user)

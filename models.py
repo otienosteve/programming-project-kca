@@ -1,9 +1,11 @@
 #from app import db
 from sqlalchemy.dialects.postgresql import UUID
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects.postgresql import ENUM
 from flask_login import UserMixin
 import uuid
 from sqlalchemy import Enum
+from enum import Enum
 from werkzeug.security import generate_password_hash, check_password_hash
 #from config import db
 
@@ -48,17 +50,39 @@ class StudentDetails(db.Model):
     village = db.Column(db.String(100), nullable=False)
     ward = db.Column(db.String(100), nullable=False)
     constituency = db.Column(db.String(100), nullable=False)
-    # institution_name = db.Column(db.String(100), nullable=False)
-    # institution_code = db.Column(db.String(100), nullable=False)
-    # campus = db.Column(db.String(100), nullable=False)
-    # level = db.Column(db.String(100), nullable=False)
-    # course = db.Column(db.String(100), nullable=False)
-    # mode_of_study = db.Column(db.String(100), nullable=False)
-    # expected_completion_year = db.Column(db.Date, nullable=False)
     verified = db.Column(db.Boolean, default=False)
     approved = db.Column(db.Boolean, default=False)
     needy_score = db.Column(db.Integer())
 
+
+
+class institutionTypeEnum(Enum):
+    primary = 'primary'
+    secondary = 'secondary'
+    tetiary = 'tetiary'
+
+class EducationDetails(db.Model):
+    __tablename__ = 'education_details'  
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
+    user_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'), nullable=False)
+    institution_type = db.Column(ENUM(institutionTypeEnum), nullable=False)
+    institution_name = db.Column(db.String(100), nullable=False)
+    institution_code = db.Column(db.String(100))
+    level = db.Column(db.String(100), nullable=False)
+    campus = db.Column(db.String(100))
+    course = db.Column(db.String(100), nullable=False)
+    mode_of_study = db.Column(db.String(100), nullable=False)
+    funding_source = db.Column(db.String(100), nullable=False)
+    details = db.Column(db.String(500))
+    grade = db.Column(db.String(100), nullable=False)
+    start_date = db.Column(db.Date, nullable=False)
+    end_date = db.Column(db.Date, nullable=False)
+
+class employmentStatusEnum(Enum):
+    yes= 'yes'
+    no= 'no'
+    retired ='retired'
+    self_employed = 'self_employed'
 
 class ParentGuardian(db.Model):
     __Tablename__='parentguardian'
@@ -71,18 +95,7 @@ class ParentGuardian(db.Model):
     occupation = db.Column(db.String(100), nullable=False)
     main_income_source = db.Column(db.String(100), nullable=False)
     other_income_source = db.Column(db.String(100))
-    employed = db.Column(Enum('yes', 'no', 'retired', name='employementstatus'), nullable=False)
-
-class EducationFundingHistory(db.Model):
-    __Tablename__='educationfundinghistory'
-    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
-    student_id = db.Column(UUID(as_uuid=True), db.ForeignKey('studentdetails.id'), nullable=False)
-    institution_type = db.Column(db.String(100), nullable=False)
-    institution_name = db.Column(db.String(100), nullable=False)
-    start_date = db.Column(db.Date, nullable=False)
-    end_date = db.Column(db.Date, nullable=False)
-    funding_source = db.Column(db.String(100), nullable=False)
-    details = db.Column(db.String(500))
+    employment_status = db.Column(ENUM(employmentStatusEnum), nullable=False)
 
 class Siblings(db.Model):
     __Tablename__='siblings'
