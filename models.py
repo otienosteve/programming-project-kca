@@ -23,7 +23,7 @@ class User(db.Model,UserMixin):
     role = db.Column(db.String(50), nullable=False)
     id_no = db.Column(db.Integer, nullable=False)
     password_hash = db.Column(db.String(128))
-    details = db.relationship('StudentDetails', back_populates='user')
+    details = db.relationship('users', back_populates='user')
 
     @property
     def password(self):
@@ -89,7 +89,7 @@ class employmentStatusEnum(Enum):
 class ParentGuardian(db.Model):
     __Tablename__='parentguardian'
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
-    student_id = db.Column(UUID(as_uuid=True), db.ForeignKey('studentdetails.id'), nullable=False)
+    student_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'), nullable=False)
     parent = db.Column(db.String(100), nullable=False)
     first_name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
@@ -103,7 +103,7 @@ class Siblings(db.Model):
     __Tablename__='siblings'
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
     name = db.Column(db.String(100), nullable=False)
-    student_id = db.Column(UUID(as_uuid=True), db.ForeignKey('studentdetails.id'), nullable=False)
+    student_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'), nullable=False)
     relationship = db.Column(db.String(100), nullable=False)
     institution = db.Column(db.String(100), nullable=False)
     level = db.Column(db.String(100), nullable=False)
@@ -123,7 +123,7 @@ class Bursary(db.Model):
 class Beneficiary(db.Model):
     __Tablename__='beneficiary'
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
-    student_id = db.Column(UUID(as_uuid=True), db.ForeignKey('studentdetails.id'), nullable=False)
+    student_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'), nullable=False)
     bursary_id = db.Column(UUID(as_uuid=True), db.ForeignKey('bursary.id'), nullable=False)
     amount_allocated = db.Column(db.Float, nullable=False)
     date_allocated = db.Column(db.Date, nullable=False)
@@ -133,7 +133,7 @@ class Beneficiary(db.Model):
 class DeclarationDocuments(db.Model):
     __Tablename__='declarationdocuments'
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
-    student_id = db.Column(UUID(as_uuid=True), db.ForeignKey('studentdetails.id'), nullable=False)
+    student_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'), nullable=False)
     individual_declaration = db.Column(db.String(500), nullable=False)
     parent_declaration = db.Column(db.String(500), nullable=False)
     religious_leader_declaration = db.Column(db.String(500), nullable=False)
