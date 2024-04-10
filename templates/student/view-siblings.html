@@ -1,0 +1,37 @@
+{% extends "student/student-dashboard.html" %}
+
+{% block center %}
+<h3>Education details</h3>
+<div class="table-responsive">
+    <table class="table table-hover table-striped">
+        <thead>
+
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">relationship</th>
+                <th scope="col">Institution </th>
+                <th scope="col">Level</th>
+                <th scope="col">Total Annual Fees</th>
+                <th scope="col">Total Fee Paid</th>
+                <th scope="'col" colspan="2"> Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sibling in sibling_details %}
+            <tr>
+                <td scope="row">{{sibling.name}}</td>
+                <td scope="row">{{sibling.relationship}}</td>
+                <td scope="row">{{sibling.institution}}</td>
+                <td scope="row">{{sibling.level}}</td>
+                <td scope="row">{{sibling.total_annual_fees}}</td>
+                <td scope="row">{{sibling.paid}}</td>
+                <td scope="row"> <a href="{{url_for('student_bp.update_education', id=sibling.id)}}"
+                        class="btn btn-outline-primary btn-sm">Update </a> </td>
+                <td scope="row"> <a href="{{url_for('student_bp.education_by_id', id=sibling.id)}}"
+                        class="btn btn-outline-danger btn-sm">Delete </a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock center %}

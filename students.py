@@ -155,7 +155,7 @@ def add_siblings():
                                                  student_id=current_user.id)
             db.session.add(sibling_details)
             db.session.commit()
-            return redirect(url_for('student_bp.view_education'))
+            return redirect(url_for('student_bp.view_siblings'))
         else:
              for field, errors in form.errors.items():
                 for error in errors:
@@ -164,11 +164,11 @@ def add_siblings():
     return render_template('student/add-siblings.html', user=user, form=form)
 
 
-@student_bp.route('/education_details', methods=['GET','POST'])
+@student_bp.route('/sibling_details', methods=['GET','POST'])
 def view_siblings():
     user = current_user
-    education_details = EducationDetails.query.filter_by(user_id=user.id).all()
-    return render_template('student/view-education.html',user=user,education_details=education_details)
+    sibling_details = Siblings.query.filter_by(student_id=user.id).all()
+    return render_template('student/view-siblings.html',user=user,sibling_details=sibling_details)
 
 @student_bp.route('/education_by_id/<string:id>', methods=['GET','POST'])
 def sibling_by_id(id):
