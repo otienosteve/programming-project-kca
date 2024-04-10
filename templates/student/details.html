@@ -1,19 +1,77 @@
 {% extends 'student/student-dashboard.html' %}
 
 {% block center %}
-<h3>Details</h3>
-<div class="image-holder">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-5">
 
-    <img src="{{url_for('static', filename=student_details.photo_url)}}" alt="">
-</div>
-<p class="h4"> <span class="text-muted">Name: </span><strong>{{student_details.firstname}} {{student_details.lastname}}
-    </strong></p>
-<p class="h4"> <span class="text-muted">Date Of Birth:</span><strong>{{student_details.dob}}</strong></p>
-<p class="h4"> <span class="text-muted">Email: </span> <strong>{{user.email}}
-    </strong></p>
-<p class="h4"> <span class="text-muted">Phone: </span><strong>{{student_details.contact_phone_number }}
-    </strong></p>
-<p class="h4"> <span class="text-muted">Id no: </span><strong>{{user.id_no}}
-    </strong></p>
+            <h3>Details</h3>
+            <div class="image-holder">
 
-{% endblock center %}
+                <img src="{{url_for('static', filename=student_details.photo_url)}}" alt="">
+            </div>
+            <p class="h4"> <span class="text-muted">Name: </span><strong>{{student_details.firstname}}
+                    {{student_details.lastname}}
+                </strong></p>
+            <p class="h4"> <span class="text-muted">Date Of Birth:</span><strong>{{student_details.dob}}</strong></p>
+            <p class="h4"> <span class="text-muted">Email: </span> <strong>{{user.email}}
+                </strong></p>
+            <p class="h4"> <span class="text-muted">Phone: </span><strong>{{student_details.contact_phone_number }}
+                </strong></p>
+            <p class="h4"> <span class="text-muted">Id no: </span><strong>{{user.id_no}}
+                </strong></p>
+            <p class="h4"> <span class="text-muted">Gender: </span><strong>{{student_details.gender}}
+                </strong></p>
+            <p class="h4"> <span class="text-muted">Constituency </span><strong>{{student_details.constituency}}
+                </strong></p>
+            <p class="h4"> <span class="text-muted">Ward: </span><strong>{{student_details.ward}}
+                </strong></p>
+            <p class="h4"> <span class="text-muted">village: </span><strong>{{student_details.village}}
+                </strong></p>
+            <p class="h4"> <span class="text-muted">Place Of Birth: </span><strong>{{student_details.place_of_birth}}
+                </strong></p>
+
+        </div>
+        <div class="col-md-6">
+            <h3>Update Bio data </h3>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li>
+                        <strong>{{ message }}</strong>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <form action="{{url_for('student_bp.add_details')}}" class="form w-50" enctype="multipart/form-data"
+                method="POST">
+                {{form.hidden_tag()}}
+                {{form.firstname.label(class='form-label')}}{{form.firstname(class='form-control',
+                value=student_details.firstname)}}
+                {{form.lastname.label(class='form-label')}}{{form.lastname(class='form-control',value=student_details.lastname)}}
+                {{form.contact_phone_number.label(class='form-label')}}{{form.contact_phone_number(class='form-control',value=student_details.contact_phone_number)}}
+                {{form. photo_url.label(class='form-label')}}{{form.
+                photo_url(class='form-control',value=student_details.photo_url)}}
+                {{form. gender.label(class='form-label')}}{{form.
+                gender(class='form-select',value=student_details.gender)}}
+                {{form.dob.label(class='form-label')}}{{form.dob(class='form-control',value=student_details.dob)}}
+                {{form.place_of_birth.label(class='form-label')}}{{form.place_of_birth(class='form-control',value=student_details.place_of_birth)}}
+                {{form.village.label(class='form-label')}}{{form.village(class='form-control',
+                value=student_details.village)}}
+                {{form.ward.label(class='form-label')}}{{form.ward(class='form-control',value=student_details.ward)}}
+                {{form.constituency.label(class='form-label')}}{{form.constituency(class='form-control',
+                value=student_details.constituency)}}
+                <br>
+                <input type="submit" value="Update Bio data " class="btn btn-outline-primary btn-sm">
+
+            </form>
+
+        </div>
+    </div>
+    {% endblock center %}

@@ -1,6 +1,6 @@
 import uuid
 import os
-from flask import Blueprint, render_template,request, flash
+from flask import Blueprint, render_template,request, flash, redirect, url_for
 from werkzeug.utils import secure_filename
 from flask_login import current_user, login_required
 from forms import StudentDetailsForm
@@ -20,6 +20,10 @@ def add_details():
     user = current_user
     form = StudentDetailsForm()
     if request.method=='POST':
+        test_exist = StudentDetails.query.filter_by(user_id=current_user.id).first()
+        if test_exist:
+            flash('You cannot create bio twice, Update Bio')
+            return redirect(url_for('student_bp.details'))
         if form.validate_on_submit():
             file = form.data.get('photo_url')
             ext = file.filename.split('.')[-1]
@@ -33,14 +37,28 @@ def add_details():
                                       constituency=form.data.get('constituency'))
             db.session.add(new_user_details)
             db.session.commit()
-
+            return redirect(url_for('student_bp.details'))
         else: 
-            flash('There were errors with your submission')
-
+            for field, errors in form.errors.items():
+                for error in errors:
+                    flash(f'Error in field "{getattr(form, field).label.text}": {error}', 'error')
     return render_template('student/student-details.html', form=form, user=user)
 
 @student_bp.route('/details')
-def view_details():
+def details():
     user = current_user
+    form = StudentDetailsForm()
     student_details = StudentDetails.query.filter_by(user_id=current_user.id).first()
-    return render_template('student/details.html', user=user,student_details=student_details)
+    form.photo_url.data = student_details.photo_url
+    if request.method=='POST':
+        if form.validate_on_submit():
+            for key, value in form.data.items():
+                if value is not None:
+                    setattr(student_details,key,value)
+                    db.session.add(student_details)
+                    db.session.commit()
+    else:
+        for field, errors in form.errors.items():
+                for error in errors:
+                    flash(f'Error in field "{getattr(form, field).label.text}": {error}', 'error')
+    return render_template('student/details.html', user=user,student_details=student_details, form=form)

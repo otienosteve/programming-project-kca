@@ -70,7 +70,7 @@ main {
 .image-holder {
     width: 200px;
     height: 200px;
-    border-radius: 2rem;
+    border-radius: 1rem;
 }
 
 .image-holder>img {

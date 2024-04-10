@@ -1,6 +1,20 @@
 {% extends 'student/student-dashboard.html' %}
 {% block center %}
 <h3>Add bio data</h3>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>
+            <strong>{{ message }}</strong>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 <form action="{{url_for('student_bp.add_details')}}" class="form w-50" enctype="multipart/form-data" method="POST">
     {{form.hidden_tag()}}
     {{form.firstname.label(class='form-label')}}{{form.firstname(class='form-control')}}
