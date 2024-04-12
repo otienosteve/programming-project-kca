@@ -1,0 +1,42 @@
+{% extends "student/student-dashboard.html" %}
+
+{% block center %}
+<h3 class="text-center"> My Documents</h3>
+<div class="container-fluid">
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        
+        {% for document in docuemnt_details %}
+        
+            {% if document.document.split('.')[-1] != 'pdf' %}
+              
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{document.document_type.value}} - {{document.name}}</h5>
+                        <p class="card-text">{{document.description}}</p>
+                        <div class="btn-card-container">
+                            <a href="{{url_for('student_bp.update_document', id=document.id)}}" class="btn btn-outline-primary btn-sm">Update</a> <a href="{{url_for('student_bp.document_by_id',id=document.id)}}" class="btn btn-outline-danger btn-sm">Delete</a>
+                        </div>
+                    </div>
+                    
+                    <img src="{{url_for('static',filename=document.document)}}" class="card-img-top" alt="...">
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% for document in docuemnt_details %}
+        
+{% if document.document.split('.')[-1] == 'pdf' %}
+<h5 class="card-title">{{document.document_type.value}} - {{document.name}}</h5>
+<p class="card-text">{{document.description}}</p>
+<object width="400" height="500" type="application/pdf" data="{{url_for('static', filename=document.document)}}">
+    <p>Insert your error message here, if the PDF cannot be displayed.</p>
+</object>
+{% endif %}
+{% endfor %}
+
+
+{% endblock center %}

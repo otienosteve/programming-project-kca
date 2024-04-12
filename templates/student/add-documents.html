@@ -1,0 +1,32 @@
+{% extends 'student/student-dashboard.html' %}
+{% block center %}
+<div class="form-section w-50 mx-auto text-center">
+
+    <h3> Add Docuemnt</h3>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+
+        <ul>
+            {% for message in messages %}
+            <li>
+                <strong>{{ message }}</strong>
+            </li>
+            {% endfor %}
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    {% endwith %}
+    <form action="" method="POST" enctype="multipart/form-data">
+        {{form.hidden_tag() }}
+        {{form.document_type.label(class='form-label')}}{{form.document_type(class='form-select')}}
+        {{form.name.label(class='form-label')}}{{form.name(class='form-control')}}
+        {{form.description.label(class='form-label')}}{{form.description(class='form-control')}}
+        {{form.document.label(class='form-label')}}{{form.document(class='form-control')}}
+
+        <br>
+        {{form.submit(class='btn btn-outline-primary btn-sm')}}
+    </form>
+</div>
+{% endblock center %}

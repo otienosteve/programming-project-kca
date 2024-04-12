@@ -1,7 +1,6 @@
 #from app import db
-from sqlalchemy.dialects.postgresql import UUID
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.dialects.postgresql import ENUM
+from sqlalchemy.dialects.mysql import ENUM
 from flask_login import UserMixin
 import uuid
 from sqlalchemy import Enum
@@ -16,7 +15,7 @@ def generate_uuid():
 
 class User(db.Model,UserMixin):
     __tablename__='users'
-    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
+    id = db.Column(db.String(36), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     phone = db.Column(db.String(20), nullable=False)
@@ -39,8 +38,8 @@ class User(db.Model,UserMixin):
 
 class StudentDetails(db.Model):
     __tablename__ = 'studentdetails'  
-    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
-    user_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'), nullable=False)
+    id = db.Column(db.String(36), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
+    user_id = db.Column(db.String(36), db.ForeignKey('users.id'), nullable=False)
     firstname = db.Column(db.String(100), nullable=False)
     lastname = db.Column(db.String(100), nullable=False)
     contact_phone_number = db.Column(db.String(20), nullable=False)
@@ -65,8 +64,8 @@ class institutionTypeEnum(Enum):
 
 class EducationDetails(db.Model):
     __tablename__ = 'education_details'  
-    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
-    user_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'), nullable=False)
+    id = db.Column(db.String(36), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
+    user_id = db.Column(db.String(36), db.ForeignKey('users.id'), nullable=False)
     institution_type = db.Column(ENUM(institutionTypeEnum), nullable=False)
     institution_name = db.Column(db.String(100), nullable=False)
     institution_code = db.Column(db.String(100))
@@ -86,24 +85,30 @@ class employmentStatusEnum(Enum):
     retired ='retired'
     self_employed = 'self_employed'
 
+class parentTypeEnum(Enum):
+    mother= 'mother'
+    father= 'father'
+    guardian ='guardian'
+
+
 class ParentGuardian(db.Model):
     __Tablename__='parentguardian'
-    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
-    student_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'), nullable=False)
-    parent = db.Column(db.String(100), nullable=False)
+    id = db.Column(db.String(36), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
+    student_id = db.Column(db.String(36), db.ForeignKey('users.id'), nullable=False)
+    parent_type = db.Column(ENUM(parentTypeEnum), nullable=False)
     first_name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
-    status = db.Column(db.String(100), nullable=False)
     occupation = db.Column(db.String(100), nullable=False)
     main_income_source = db.Column(db.String(100), nullable=False)
     other_income_source = db.Column(db.String(100))
     employment_status = db.Column(ENUM(employmentStatusEnum), nullable=False)
+    average_monthly_income =db.Column(db.Float())
 
 class Siblings(db.Model):
     __Tablename__='siblings'
-    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
+    id = db.Column(db.String(36), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
     name = db.Column(db.String(100), nullable=False)
-    student_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'), nullable=False)
+    student_id = db.Column(db.String(36), db.ForeignKey('users.id'), nullable=False)
     relationship = db.Column(db.String(100), nullable=False)
     institution = db.Column(db.String(100), nullable=False)
     level = db.Column(db.String(100), nullable=False)
@@ -112,7 +117,7 @@ class Siblings(db.Model):
 
 class Bursary(db.Model):
     __Tablename__='bursary'
-    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
+    id = db.Column(db.String(36), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(500), nullable=False)
     fund_amount = db.Column(db.Float, nullable=False)
@@ -122,19 +127,25 @@ class Bursary(db.Model):
 
 class Beneficiary(db.Model):
     __Tablename__='beneficiary'
-    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
-    student_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'), nullable=False)
-    bursary_id = db.Column(UUID(as_uuid=True), db.ForeignKey('bursary.id'), nullable=False)
+    id = db.Column(db.String(36), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
+    student_id = db.Column(db.String(36), db.ForeignKey('users.id'), nullable=False)
+    bursary_id = db.Column(db.String(36), db.ForeignKey('bursary.id'), nullable=False)
     amount_allocated = db.Column(db.Float, nullable=False)
     date_allocated = db.Column(db.Date, nullable=False)
     disbursed = db.Column(db.Boolean, nullable=False)
     date_disbursed = db.Column(db.Date)
 
-class DeclarationDocuments(db.Model):
-    __Tablename__='declarationdocuments'
-    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
-    student_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'), nullable=False)
-    individual_declaration = db.Column(db.String(500), nullable=False)
-    parent_declaration = db.Column(db.String(500), nullable=False)
-    religious_leader_declaration = db.Column(db.String(500), nullable=False)
-    local_authority_declaration = db.Column(db.String(500), nullable=False)
+class docuemntTypeEnum(Enum):
+    declaration= 'declaration'
+    national= 'national'
+    academic= 'academic'
+
+class Documents(db.Model):
+    __Tablename__='documents'
+    id = db.Column(db.String(36), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
+    student_id = db.Column(db.String(36), db.ForeignKey('users.id'), nullable=False)
+    description = db.Column(db.String(500), nullable=False)
+    document_type = db.Column(ENUM(docuemntTypeEnum), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
+    document = db.Column(db.String(50), nullable=False) 
+    

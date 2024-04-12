@@ -17,7 +17,7 @@ ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 def create_app():
     app = Flask(__name__,static_folder='static')
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://sjlyhjtg:AHJeVeXWDapLMnNb69p5dKxdbkZqsQgw@bubble.db.elephantsql.com/sjlyhjtg'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://supersteve:super1234@127.0.0.1:3306/bursary'
     app.config['SECRET_KEY'] = '4f334c6c66230ebc0857bcde98b7f05d'
     app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER')
     app.config['MAIL_PORT'] = os.environ.get('MAIL_PORT')

@@ -1,0 +1,35 @@
+{% extends 'student/student-dashboard.html' %}
+{% block center %}
+<div class="form-section w-50 mx-auto text-center">
+
+    <h3> Update Parent Details</h3>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+
+        <ul>
+            {% for message in messages %}
+            <li>
+                <strong>{{ message }}</strong>
+            </li>
+            {% endfor %}
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    {% endwith %}
+    <form action="" method="POST">
+        {{form.hidden_tag()}}
+        {{form.parent_type.label(class='form-label')}}{{form.parent_type(class='form-select', value=parent_details.parent_type.value)}}
+        {{form.first_name.label(class='form-label')}}{{form.first_name(class='form-control',value=parent_details.first_name)}}
+        {{form.last_name.label(class='form-label')}}{{form.last_name(class='form-control',value=parent_details.last_name)}}
+        {{form.employment_status.label(class='form-label')}}{{form.employment_status(class='form-select', value=parent_details.employment_status.value)}}
+        {{form.occupation.label(class='form-label')}}{{form.occupation(class='form-control',value=parent_details.occupation)}}
+        {{form.main_income_source.label(class='form-label')}}{{form.main_income_source(class='form-control',value=parent_details.main_income_source)}}
+        {{form.other_income_source.label(class='form-label')}}{{form.other_income_source(class='form-control',value=parent_details.other_income_source)}}
+        {{form.average_monthly_income.label(class='form-label')}}{{form.average_monthly_income(class='form-control',value=parent_details.average_monthly_income)}}
+        <br>
+        {{form.submit(class='btn btn-outline-primary btn-sm')}}
+    </form>
+</div>
+{% endblock center %}

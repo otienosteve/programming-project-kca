@@ -114,3 +114,62 @@ class SiblingsUpdateForm(FlaskForm):
     level = StringField('Education Level')
     paid = StringField('Total Paid')
     submit =SubmitField('Update Sibling Details')
+
+parent_type_choices=[
+
+    ('mother', 'mother'),
+   ( 'father', 'father'),
+    ('guardian','guardian')
+]
+
+employemnt_status_choices = [    ('yes', 'yes'),
+    ('no', 'no'),
+    ('retired','retired'),
+    ('self_employed', 'self_employed')]
+
+class ParentGuradianFrom(FlaskForm):
+    parent_type = SelectField('Parent Type',choices=parent_type_choices, validators=[DataRequired()])
+    first_name = StringField('First Name',validators=[DataRequired()])
+    last_name = StringField('Last Name',validators=[DataRequired()])
+    employment_status = SelectField(choices=employemnt_status_choices, validators=[DataRequired()])
+    occupation = StringField('Occupation', validators=[DataRequired()])
+    main_income_source = StringField('Main Source Of Income',validators=[DataRequired()])
+    other_income_source = StringField('Other Source Of Income', validators=[DataRequired()])
+    average_monthly_income = StringField('Average Monthly Income', validators=[DataRequired()])
+    submit =SubmitField('Add Parent Details')
+
+
+class ParentGuradianUpdateFrom(FlaskForm):
+    parent_type = SelectField('Parent Type',choices=parent_type_choices, validators=[DataRequired()])
+    first_name = StringField('First Name',validators=[DataRequired()])
+    last_name = StringField('Last Name',validators=[DataRequired()])
+    employment_status = StringField('Employment Status', validators=[DataRequired()])
+    occupation = StringField('Occupation', validators=[DataRequired()])
+    main_income_source = StringField('Main Source Of Income',validators=[DataRequired()])
+    other_income_source = StringField('Other Source Of Income', validators=[DataRequired()])
+    average_monthly_income = StringField('Average Monthly Income', validators=[DataRequired()])
+    submit =SubmitField('update Parent Details')
+
+document_choices = [    ('declaration', 'declaration'),
+    ('national', 'national'),
+    ('academic', 'academic')]
+
+class DocumentsForm(FlaskForm):
+    document_type = SelectField(choices=document_choices, validators=[DataRequired()])
+    name = StringField('Docuemnt Name', validators=[DataRequired()])
+    description = StringField('Docuemnt Description', validators=[DataRequired()])
+    document = FileField('Add File', validators=[
+        FileRequired(),
+        FileAllowed(['jpg', 'png', 'pdf'], 'Images (jpg, png) and pdf only!')
+    ])
+    submit =SubmitField('Add Docuemnt')
+
+
+class DocumentsUpdateForm(FlaskForm):
+    document_type = SelectField(choices=document_choices)
+    name = StringField('Docuemnt Name')
+    description = StringField('Docuemnt Description')
+    document = FileField('Add File', validators=[
+        FileAllowed(['jpg', 'png', 'pdf'], 'Images (jpg, png)  and pdf only!')
+    ])
+    submit =SubmitField('update Docuemnt')

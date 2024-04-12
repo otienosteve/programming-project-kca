@@ -9,9 +9,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
                 <a class="nav-link active" aria-current="page" href="#">Bursaries</a>
                 </li>
                 <a class="nav-link active" aria-current="page" href="#">Applications</a>
@@ -28,7 +25,6 @@
 
                         <img src="{{url_for('static',filename=user.details.photo_url)}}" alt="" width="32" height="32"
                             class="rounded-circle me-2">
-
                         {% else %}
                         <img src="{{url_for('static',filename=user.details.photo_url)}}" alt="" width="32" height="32"
                             class="rounded-circle me-2">
@@ -53,63 +49,108 @@
 <div class="container-fluid">
     <div class="row mt-5">
 
-        <div class="col-md-3 p-0 h-100">
+        <div class="col-md-2 p-0 h-100">
 
-            <div class="d-flex flex-column flex-shrink-0 p-3 bg-dark">
-                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <svg class="bi pe-none me-2" width="40" height="32">
+            <div class="flex-shrink-0 p-3" style="width: 280px;">
+                <a href="{{url_for('student_bp.main')}}"
+                    class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none">
+                    <svg class="bi pe-none me-2" width="30" height="24">
                         <use xlink:href="#bootstrap" />
                     </svg>
-                    <span class="fs-4">Sidebar</span>
+                    <span class="fs-5 fw-semibold"> Home</span>
                 </a>
-                <hr>
-                <ul class="nav nav-pills flex-column mb-auto">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" aria-current="page">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#home" />
-                            </svg>
-                            Home
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{url_for('student_bp.add_details')}}" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#speedometer2" />
-                            </svg>
-                            Details
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#table" />
-                            </svg>
-                            Education
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#grid" />
-                            </svg>
-                            Parent/Guardian
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#people-circle" />
-                            </svg>
-                            Documents
-                        </a>
-                    </li>
-                </ul>
-                <hr>
+                <ul class="list-unstyled ps-0">
+                    <li class="mb-1">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse" data-bs-target="#bio-data-collapse" aria-expanded="true">
+                            Bio Data
+                        </button>
+                        <div class="collapse show" id="bio-data-collapse">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                <li><a href="{{url_for('student_bp.details')}}"
+                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded">View Bio
+                                        Data</a></li>
+                                <li><a href="{{url_for('student_bp.add_details')}}"
+                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add Bio
+                                        Data</a></li>
 
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="mb-1">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse" data-bs-target="#education-collapse" aria-expanded="false">
+                            Education
+                        </button>
+                        <div class="collapse" id="education-collapse">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                <li><a href="{{url_for('student_bp.view_education')}}"
+                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded">Education</a>
+                                </li>
+                                <li><a href="{{url_for('student_bp.add_education')}}"
+                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add
+                                        Education</a></li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="mb-1">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse" data-bs-target="#siblings-collapse" aria-expanded="false">
+                            Siblings
+                        </button>
+                        <div class="collapse" id="siblings-collapse">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                <li><a href="{{url_for('student_bp.view_siblings')}}"
+                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded">Siblings</a>
+                                </li>
+                                <li><a href="{{url_for('student_bp.add_siblings')}}"
+                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add
+                                        Siblings</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="mb-1">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse" data-bs-target="#parent-collapse" aria-expanded="false">
+                            Parent/Guardian
+                        </button>
+                        <div class="collapse" id="parent-collapse">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                <li><a href="{{url_for('student_bp.view_parent')}}"
+                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded">Parent</a>
+                                </li>
+                                <li><a href="{{url_for('student_bp.add_parent')}}"
+                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add
+                                        Parent</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li> 
+                    <li class="mb-1">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse" data-bs-target="#documents-collapse" aria-expanded="false">
+                            Documents
+                        </button>
+                        <div class="collapse" id="documents-collapse">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                <li><a href="{{url_for('student_bp.add_document')}}"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add
+                                    Documents</a>
+                                </li>
+                                <li><a href="{{url_for('student_bp.view_document')}}"
+                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded">Documents</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    
+                </ul>
             </div>
         </div>
-        <div class="col-md-9 mt-2 d-flex justify-content-center">
+        <div class="col-md-10 mt-2 d-flex justify-content-center">
             <div class="mid-section w-100">
                 {% block center %}
 
