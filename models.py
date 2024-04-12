@@ -6,7 +6,7 @@ import uuid
 from sqlalchemy import Enum
 from enum import Enum
 from werkzeug.security import generate_password_hash, check_password_hash
-#from config import db
+
 
 db = SQLAlchemy()
 
@@ -122,6 +122,7 @@ class Bursary(db.Model):
     description = db.Column(db.String(500), nullable=False)
     fund_amount = db.Column(db.Float, nullable=False)
     contact_person = db.Column(db.String(100), nullable=False)
+    contact_person_contact = db.Column(db.String(12),nullable=False)
     photo_url = db.Column(db.String(500))
 
 

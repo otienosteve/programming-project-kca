@@ -9,11 +9,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li>
                 <a class="nav-link active" aria-current="page" href="#">Bursaries</a>
-                </li>
-                <a class="nav-link active" aria-current="page" href="#">Applications</a>
-                </li>
-                <a class="nav-link active" aria-current="page" href="#">Link</a>
                 </li>
             </ul>
             <form class="d-flex" role="search">
@@ -62,10 +59,26 @@
                 <ul class="list-unstyled ps-0">
                     <li class="mb-1">
                         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-                            data-bs-toggle="collapse" data-bs-target="#bio-data-collapse" aria-expanded="true">
+                            data-bs-toggle="collapse" data-bs-target="#bursary-collapse" aria-expanded="true">
+                            Bursaries
+                        </button>
+                        <div class="collapse show" id="bursary-collapse">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                <li><a href="{{url_for('student_bp.add_details')}}"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Bursaries</a></li>
+                                    
+                                    <li><a href="{{url_for('student_bp.details')}}"
+                                            class="link-body-emphasis d-inline-flex text-decoration-none rounded"> My Applications
+                                        </a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="mb-1">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse" data-bs-target="#bio-data-collapse" aria-expanded="false">
                             Bio Data
                         </button>
-                        <div class="collapse show" id="bio-data-collapse">
+                        <div class="collapse" id="bio-data-collapse">
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                 <li><a href="{{url_for('student_bp.details')}}"
                                         class="link-body-emphasis d-inline-flex text-decoration-none rounded">View Bio

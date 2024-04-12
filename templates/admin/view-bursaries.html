@@ -1,0 +1,32 @@
+{% extends "admin/admin-dashboard.html" %}
+{% block center %}
+  
+<h3 class="text-center">
+ Bursaries
+</h3>
+<table class="table-responsive table-striped table">
+    <tr>
+        <th>Title</th>
+        <th>Decsription</th>
+        <th>Fund Amount</th>
+        <th>Contact Person</th>
+        <th>Contact Person Contact</th>
+        <th colspan="3" class="text-center">Actions</th>
+    </tr>
+    {% for bursary in bursaries  %}
+
+    <tr>
+
+        <td>{{bursary.title}}</td>
+        <td>{{bursary.description}}</td>
+        <td>{{bursary.fund_amount}}</td>
+        <td>{{bursary.contact_person}}</td>
+        <td>{{bursary.contact_person_contact}}</td>
+        <td><a href="" class="btn btn-outline-success btn-sm">View Applications</a> </td>
+        <td>  <a href="" class=" btn btn-sm btn-outline-primary">Update</a></td>
+        <td> <a href="{{url_for('admin_bp.delete_bursary', id=bursary.id)}}" class="btn btn-sm btn-outline-danger">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+  
+{% endblock center %}

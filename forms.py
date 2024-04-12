@@ -3,7 +3,8 @@ from flask import current_app as app
 from wtforms import (StringField, PasswordField,
                      SubmitField, SelectField,
                      TextAreaField, IntegerField,
-                     FileField,DateField)
+                     FileField,DateField,
+                     DecimalField)
 from wtforms.validators import DataRequired, Email, EqualTo, Length,Regexp
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 
@@ -173,3 +174,21 @@ class DocumentsUpdateForm(FlaskForm):
         FileAllowed(['jpg', 'png', 'pdf'], 'Images (jpg, png)  and pdf only!')
     ])
     submit =SubmitField('update Docuemnt')
+
+
+class BursaryForm( FlaskForm):
+    title = StringField('Bursary Title', validators=[DataRequired()])
+    description = TextAreaField('Description',validators=[DataRequired()])
+    fund_amount = DecimalField('Fund Amount',validators=[DataRequired()])
+    contact_person = StringField('Contact Person', validators=[DataRequired()])
+    contact_person_contact = StringField('Contact', validators=[DataRequired()])
+    submit =SubmitField('Add Bursary')
+
+
+class BursaryUpdateForm( FlaskForm):
+    title = StringField('Bursary Title')
+    description = TextAreaField('Description')
+    fund_amount = DecimalField('Fund Amount')
+    contact_person = StringField('Contact Person')
+    contact_person_contact = StringField('Contact')
+    submit =SubmitField('update Bursary')

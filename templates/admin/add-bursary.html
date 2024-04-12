@@ -1,0 +1,38 @@
+{% extends "admin/admin-dashboard.html" %}
+
+{% block center %}
+    
+<h3 class="text-center">Add Bursary</h3>
+<div class="form w-50 mx-auto">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+
+        <ul>
+            {% for message in messages %}
+            <li>
+                <strong>{{ message }}</strong>
+            </li>
+            {% endfor %}
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    {% endwith %}
+    <form action="{{url_for('admin_bp.add_bursary')}}" method="POST">
+        {{form.hidden_tag()}}
+        {{form.title.label(class='form-label')}} {{form.title(class='form-control')}}
+        {{form.description.label(class='form-label')}} {{form.description(class='form-control')}}
+        {{form.fund_amount.label(class='form-label')}} {{form.fund_amount(class='form-control')}}
+        {{form.contact_person.label(class='form-label')}} {{form.contact_person(class='form-control')}}
+        {{form.contact_person_contact.label(class='form-label')}} {{form.contact_person_contact(class='form-control')}}
+       <br>
+        {{form.submit(class='btn btn-sm btn-outline-primary')}}
+        
+    </div>
+
+
+</form>
+
+{% endblock center %}
+    

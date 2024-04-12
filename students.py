@@ -3,7 +3,7 @@ import os
 from flask import Blueprint, render_template,request, flash, redirect, url_for
 from werkzeug.utils import secure_filename
 from flask_login import current_user, login_required
-from forms import (StudentDetailsForm, \
+from forms import (StudentDetailsForm, 
                    StudentDetailsUpdateForm,
                      SiblingsForm,
                        SiblingsUpdateForm,

@@ -6,10 +6,10 @@ from dotenv import load_dotenv
 
 from auth import auth_bp, login_manager
 from students import student_bp
-# from admin_dashboard import admin_bp
-# from home import home_bp
+from admin import admin_bp
+
 from models import db
-# from mail_config import mail
+
 
 load_dotenv()
 
@@ -34,12 +34,10 @@ def create_app():
     migrate = Migrate(app, db)
     db.init_app(app)
     login_manager.init_app(app)
-    # login_manager.init_app(app)
     app.register_blueprint(auth_bp)
     app.register_blueprint(student_bp)
-    # app.register_blueprint(admin_bp)
-    # app.register_blueprint(examiner_bp)
-    # app.register_blueprint(home_bp)
+    app.register_blueprint(admin_bp)
+
 
     return app
 

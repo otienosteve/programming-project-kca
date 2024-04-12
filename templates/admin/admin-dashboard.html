@@ -1,0 +1,119 @@
+{% extends 'top-bottom.html' %}
+{% block main %}
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Rekindled Dream</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li>
+                <a class="nav-link active" aria-current="page" href="#">Bursaries</a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <p>User</p>
+                       
+
+                     
+                         <img src="" alt="" width="32" height="32"
+                            class="rounded-circle me-2">
+
+                        <strong></strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li><a class="dropdown-item" href="#">New project...</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{{url_for('auth_bp.logout')}}">Sign out</a></li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row mt-5">
+
+        <div class="col-md-2 p-0 h-100">
+
+            <div class="flex-shrink-0 p-3" style="width: 280px;">
+                <a href="{{url_for('student_bp.main')}}"
+                    class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none">
+                    <svg class="bi pe-none me-2" width="30" height="24">
+                        <use xlink:href="#bootstrap" />
+                    </svg>
+                    <span class="fs-5 fw-semibold"> Home</span>
+                </a>
+                <ul class="list-unstyled ps-0">
+                    <li class="mb-1">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse" data-bs-target="#bursary-collapse" aria-expanded="true">
+                            Bursaries
+                        </button>
+                        <div class="collapse show" id="bursary-collapse">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                <li><a href="{{url_for('admin_bp.add_bursary')}}"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add Bursaries</a></li>
+                                    <li><a href="{{url_for('admin_bp.view_bursaries')}}"
+                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded">View Bursaries</a></li>
+                                    <li><a href="{{url_for('admin_bp.view_bursaries')}}"
+                                            class="link-body-emphasis d-inline-flex text-decoration-none rounded"> View Applications
+                                        </a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="mb-1">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse" data-bs-target="#students-collapse" aria-expanded="false">
+                             Students
+                        </button>
+                        <div class="collapse" id="students-collapse">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                <li><a href="{{url_for('student_bp.details')}}"
+                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded">View Students</a></li>
+                                <li><a href="{{url_for('student_bp.add_details')}}"
+                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded">Other Students Details</a></li>
+
+                            </ul>
+                        </div>
+                    </li>  
+                    <li class="mb-1">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse" data-bs-target="#sponsor-collapse" aria-expanded="false">
+                             Sponsors
+                        </button>
+                        <div class="collapse" id="sponsor-collapse">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                <li><a href="{{url_for('student_bp.details')}}"
+                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add Sponsors</a></li>
+                                <li><a href="{{url_for('student_bp.add_details')}}"
+                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded">View Sponsors </a></li>
+
+                            </ul>
+                        </div>
+                    </li>             
+                </ul>
+                
+            </div>
+        </div>
+        <div class="col-md-10 mt-2 d-flex justify-content-center">
+            <div class="mid-section w-100">
+                {% block center %}
+
+                {% endblock center %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}
+{% block title %}
+{% endblock title %}
